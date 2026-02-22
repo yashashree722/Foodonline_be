@@ -128,5 +128,12 @@ class ApprovePendingSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Status must be APPROVED or REJECTED")
         return value
 
+
+
+class RestaurantUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Restaurant
+        fields =["name", "address"]
+        
             
 

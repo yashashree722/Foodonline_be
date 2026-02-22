@@ -6,10 +6,10 @@ from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from .serializers import RegisterSerializer, ProfileSerailizer,ChangepasswordSerializer,UserEnableDisableSeralizer ,ChangeUserRoleSerializer ,ResetPasswordSerializer,VerifyTokenSerializer,ForgetPasswordserializer ,\
-RestaurantSeralizer,PendingRestaurantSerializer, ApprovePendingSerializer
+RestaurantSeralizer,PendingRestaurantSerializer, ApprovePendingSerializer, RestaurantUpdateSerializer
 from .permissions import IsAdminUser,IsRestaurantOwner
 from rest_framework import status
-from .models import User,Profile,PasswordResetToken, Restaurant
+from .models import User,Profile, Restaurant
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
@@ -243,3 +243,28 @@ class ApprovePendingRestaurant(APIView):
             "status": res.status
         })
 
+
+class UpdateRestaurantAPI(APIView):
+    permission_classes =[IsRestaurantOwner]
+    def patch(self, request):
+        restauant = get_object_or_404(Restaurant,owner= request.user)
+        if not restauant:
+            return Response({
+                "data" :"Not valid id"
+            }, status= status.HTTP_400_BAD_REQUEST)
+        if restauant.status != 'APPROVED':
+            return Response({
+                "data" :"Restauant not approved  yet"
+            },status= status.HTTP_400_BAD_REQUEST)
+        serializer = RestaurantUpdateSerializer(restauant, data= request.data, partial= True)
+        serializer.is_valid()
+        
+        
+        serializer.save()
+        return Response({
+            "message" :"Updated Restauant"
+        }, status= status.HTTP_201_CREATED)
+
+        
+            
+        
