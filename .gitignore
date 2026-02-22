@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+venv/
+myenv/
+.venv/
+
+# Django stuff
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Django migrations (optional – usually keep them)
+*/migrations/*
+!*/migrations/__init__.py
+
+# Secret settings
+.env
+.env.*
+*.env
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PyCharm
+*.iml
+
+# Test / coverage reports
+htmlcov/
+.coverage
+.tox/
+.pytest_cache/
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Celery beat schedule
+celerybeat-schedule
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
